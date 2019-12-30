@@ -9,7 +9,7 @@ class XlsxTest {
     @Test
     fun `should be able to create workbook`() {
         val xlsx = workbook { }
-        assertThat(xlsx.workbook).isNotNull
+        assertThat(xlsx).isNotNull
     }
 
     @Test
@@ -18,8 +18,8 @@ class XlsxTest {
             sheet { }
         }
 
-        assertThat(xlsx.sheets).hasSize(1)
-        assertThat(xlsx.sheets.first().name).isEqualTo("Sheet 1")
+        assertThat(xlsx.numberOfSheets).isEqualTo(1)
+        assertThat(xlsx.getSheetAt(0).sheetName).isEqualTo("Sheet 1")
     }
 
     @Test
@@ -29,23 +29,25 @@ class XlsxTest {
             sheet(name) { }
         }
 
-        assertThat(xlsx.sheets).hasSize(1)
-        assertThat(xlsx.sheets.first().name).isEqualTo(name)
+        assertThat(xlsx.numberOfSheets).isEqualTo(1)
+        assertThat(xlsx.getSheet(name)).isNotNull
     }
 
     @Test
     fun `should be able to create an xlsx`() {
         workbook {
-            val headerStyle = workbook.createCellStyle()
-            headerStyle.fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
-            headerStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
+            val headerStyle = createCellStyle().apply {
+                fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
+                fillPattern = FillPatternType.SOLID_FOREGROUND
+            }
             sheet("One") {
                 row(listOf("a", "b", "c"), headerStyle)
                 row(listOf("1", "2", "3"))
             }
-            sheet("Two") {
-
-                row(listOf("Foo", "bar"))
+            sheet {
+                row(listOf("A very wide cell"))
+                row(listOf("An even wider column"))
+                autoSizeColumn(0)
             }
         }.write("test.xlsx")
     }
