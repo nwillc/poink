@@ -2,7 +2,6 @@ package com.github.nwillc.poink
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.io.FileOutputStream
 
 class XlsxTest {
     @Test
