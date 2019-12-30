@@ -1,4 +1,4 @@
-val coverageThreshold = 0.98
+val coverageThreshold = 0.95
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "maven"
 
