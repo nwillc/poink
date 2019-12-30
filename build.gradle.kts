@@ -1,6 +1,7 @@
 val coverageThreshold = 0.95
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "maven"
+
 val assertJVersion: String by project
 val jacocoToolVersion: String by project
 val jupiterVersion: String by project
