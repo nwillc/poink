@@ -12,6 +12,7 @@ val poiVersion: String by project
 plugins {
     kotlin("jvm") version "1.3.61"
     jacoco
+    `maven-publish`
     id("com.github.nwillc.vplugin") version "3.0.1"
     id("org.jetbrains.dokka") version "0.10.0"
     id("io.gitlab.arturbosch.detekt") version "1.3.0"
@@ -20,7 +21,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.0.1"
+version = "0.0.2-SNAPSHOT"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -79,6 +80,40 @@ jacoco {
     toolVersion = jacocoToolVersion
 }
 
+publishing {
+    publications {
+        create<MavenPublication>(publicationName) {
+            groupId = project.group.toString()
+            artifactId = project.name
+            version = project.version.toString()
+
+            from(components["java"])
+            artifact(sourcesJar.get())
+            artifact(javadocJar.get())
+        }
+    }
+}
+
+bintray {
+    user = System.getenv("BINTRAY_USER")
+    key = System.getenv("BINTRAY_API_KEY")
+    dryRun = false
+    publish = true
+    setPublications(publicationName)
+    pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
+        repo = publicationName
+        name = project.name
+        desc = "Apache POI Koltin DSL"
+        websiteUrl = "https://github.com/nwillc/poink"
+        issueTrackerUrl = "https://github.com/nwillc/poink/issues"
+        vcsUrl = "https://github.com/nwillc/poink.git"
+        version.vcsTag = "v${project.version}"
+        setLicenses("ISC")
+        setLabels("kotlin", "Apache POI", "DSL")
+        publicDownloadNumbers = true
+    })
+}
+
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = jvmTargetVersion
@@ -117,6 +152,19 @@ tasks {
                 limit {
                     minimum = coverageThreshold.toBigDecimal()
                 }
+            }
+        }
+    }
+    withType<GenerateMavenPom> {
+        destination = file("$buildDir/libs/${project.name}-${project.version}.pom")
+    }
+    withType<com.jfrog.bintray.gradle.tasks.BintrayUploadTask> {
+        onlyIf {
+            if (project.version.toString().contains('-')) {
+                logger.lifecycle("Version v${project.version} is not a release version - skipping upload.")
+                false
+            } else {
+                true
             }
         }
     }
