@@ -1,7 +1,10 @@
 package com.github.nwillc.poink
 
+import org.apache.poi.ss.usermodel.FillPatternType
+import org.apache.poi.ss.usermodel.IndexedColors
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import java.awt.HeadlessException
 
 class XlsxTest {
     @Test
@@ -33,16 +36,18 @@ class XlsxTest {
 
     @Test
     fun `should be able to create an xlsx`() {
-        val xlsx = workbook {
+        workbook {
+            val headerStyle = workbook.createCellStyle()
+            headerStyle.fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
+            headerStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
             sheet("One") {
-                row(listOf("a", "b", "c"))
+                row(listOf("a", "b", "c"), headerStyle)
                 row(listOf("1", "2", "3"))
             }
             sheet("Two") {
+
                 row(listOf("Foo", "bar"))
             }
-        }
-
-        xlsx.write("test.xlsx")
+        }.write("test.xlsx")
     }
 }
