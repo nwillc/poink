@@ -42,7 +42,8 @@ class XlsxTest {
             }
             sheet("One") {
                 row(listOf("a", "b", "c"), headerStyle)
-                row(listOf("1", "2", "3"))
+                val cells =  row(listOf("1", "2", "3"))
+                cells[0].cellStyle = headerStyle
             }
             sheet {
                 row(listOf("A very wide cell"))

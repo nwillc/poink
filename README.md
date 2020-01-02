@@ -3,11 +3,12 @@
 [![Travis](https://img.shields.io/travis/nwillc/poink.svg)](https://travis-ci.org/nwillc/poink)
 [![Download](https://api.bintray.com/packages/nwillc/maven/poink/images/download.svg)](https://bintray.com/nwillc/maven/poink/_latestVersion)
 ---
+![Poink!](poink.png)
 # Poi In Kotlin DSL
 
 A Kotlin DSL to generate XLSX files via Apache POI.
 
-Really almost nothing here, just provides for this sort of use:
+Really almost nothing here, the DSL is a facade for Apache POI, providing for this sort of use:
 
 ```kotlin
         workbook {
