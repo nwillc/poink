@@ -4,7 +4,7 @@
 [![Download](https://api.bintray.com/packages/nwillc/maven/poink/images/download.svg)](https://bintray.com/nwillc/maven/poink/_latestVersion)
 ---
 ![Poink!](poink.png)
-# Poi In Kotlin DSL
+# Apache POI iN Kotlin DSL
 
 A Kotlin DSL to generate XLSX files via Apache POI.
 
