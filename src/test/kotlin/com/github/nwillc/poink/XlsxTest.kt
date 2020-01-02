@@ -42,7 +42,7 @@ class XlsxTest {
             }
             sheet("One") {
                 row(listOf("a", "b", "c"), headerStyle)
-                val cells =  row(listOf("1", "2", "3"))
+                val cells = row(listOf("1", "2", "3"))
                 cells[0].cellStyle = headerStyle
             }
             sheet {
