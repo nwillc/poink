@@ -12,18 +12,26 @@ Really almost nothing here, the DSL is a facade for Apache POI, providing for th
 
 ```kotlin
         workbook {
-            val headerStyle = createCellStyle().apply {
+            // Create a named cell style
+            val headerStyle = createCellStyle("Header") {
                 fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
                 fillPattern = FillPatternType.SOLID_FOREGROUND
             }
             sheet("One") {
+                // Add a row with a style
                 row(listOf("a", "b", "c"), headerStyle)
+                // Add a row without style
                 row(listOf("1", "2", "3"))
             }
             sheet {
                 row(listOf("A very wide cell"))
                 row(listOf("An even wider column"))
+                // Auto size the width of a column
                 autoSizeColumn(0)
             }
         }.write("test.xlsx")
 ```
+
+## See Also
+
+- [API Docs](https://nwillc.github.io/poink/dokkaHtml/poink)

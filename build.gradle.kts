@@ -21,7 +21,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.1.0"
+version = "0.1.1"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -31,11 +31,15 @@ repositories {
 
 dependencies {
     listOf(
-        kotlin("stdlib-jdk8"),
+        kotlin("stdlib-jdk8")
+    )
+        .forEach { implementation(it) }
+
+    listOf(
         "org.apache.poi:poi:$poiVersion",
         "org.apache.poi:poi-ooxml:$poiVersion"
     )
-        .forEach { implementation(it) }
+        .forEach { api(it) }
 
     listOf(
         "org.junit.jupiter:junit-jupiter-api:$jupiterVersion",
@@ -167,5 +171,9 @@ tasks {
                 true
             }
         }
+    }
+    withType<org.jetbrains.dokka.gradle.DokkaTask> {
+        outputFormat = "html"
+        outputDirectory = "docs/dokkaHtml"
     }
 }
