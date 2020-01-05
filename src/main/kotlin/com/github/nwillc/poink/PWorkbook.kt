@@ -18,16 +18,30 @@ package com.github.nwillc.poink
 
 import java.io.FileOutputStream
 import org.apache.poi.ss.usermodel.CellStyle
+import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
+/**
+ * The _poink_ DSL facade for the Apache POI [Workbook].
+ */
 @PoinkDsl
 class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook by workbook {
     private val styles: MutableMap<String, CellStyle> = mutableMapOf()
 
+    /**
+     * Add a named sheet to the workbook.
+     * @param name of the new sheet, will default to "Sheet #"
+     */
     fun sheet(name: String = "Sheet ${numberOfSheets + 1}", block: PSheet.() -> Unit) =
         PSheet(createSheet(name)).apply(block)
 
+    /**
+     * Create a named [CellStyle] in the workbook for future use.
+     * @param name to use for created style.
+     * @param block Lambda to apply to the created style.
+     * @return The created [CellStyle]
+     */
     fun createCellStyle(name: String, block: CellStyle.() -> Unit = {}): CellStyle {
         val cellStyle = createCellStyle()
         cellStyle.apply(block)
@@ -35,9 +49,20 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
         return cellStyle
     }
 
+    /**
+     * Get a [CellStyle] by name.
+     * @param name of the style to look up.
+     */
     fun getCellStyle(name: String) = styles[name]
 
+    /**
+     * Write the workbook out to a file.
+     * @param path name of the output file.
+     */
     fun write(path: String) = FileOutputStream(path).use { workbook.write(it) }
 }
 
+/**
+ * Create a workbook.
+ */
 fun workbook(block: PWorkbook.() -> Unit): PWorkbook = PWorkbook().apply(block)

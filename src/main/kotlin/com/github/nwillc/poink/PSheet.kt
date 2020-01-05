@@ -20,10 +20,19 @@ import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.Sheet
 
+/**
+ * The _poink_ DSL facade for the Apache POI [Sheet].
+ */
 @PoinkDsl
 class PSheet(
     private val sheet: Sheet
 ) : Sheet by sheet {
+    /**
+     * Add strings as a new row at bottom of sheet.
+     * @param cells A [List] of [String] to add to [Sheet] as a row.
+     * @param style An optional [CellStyle] for the cells in the row.
+     * @return The [List] of [Cell] added as a row.
+     */
     fun row(cells: List<String>, style: CellStyle? = null): List<Cell> {
         val cellList = mutableListOf<Cell>()
         val row = sheet.createRow(sheet.physicalNumberOfRows)

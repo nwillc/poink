@@ -1,3 +1,4 @@
+
 val coverageThreshold = 0.95
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "maven"
@@ -21,7 +22,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.1.1"
+version = "0.1.2-SNAPSHOT"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -175,5 +176,12 @@ tasks {
     withType<org.jetbrains.dokka.gradle.DokkaTask> {
         outputFormat = "html"
         outputDirectory = "docs/dokkaHtml"
+        configuration {
+            sourceLink {
+                   path = "src/main/kotlin" // or simply "./"
+                   url = "https://github.com/nwillc/poink/tree/master/src/main/kotlin" //remove src/main/kotlin if you use "./" above
+                   lineSuffix = "#L"
+               }
+        }
     }
 }

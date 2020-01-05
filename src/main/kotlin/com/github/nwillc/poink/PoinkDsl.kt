@@ -16,5 +16,8 @@
 
 package com.github.nwillc.poink
 
+/**
+ * Tagging annotation for classes in the _poink_ DSL.
+ */
 @DslMarker
 annotation class PoinkDsl

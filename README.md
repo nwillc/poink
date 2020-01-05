@@ -33,5 +33,5 @@ Really almost nothing here, the DSL is a facade for Apache POI, providing for th
 ```
 
 ## See Also
-
-- [API Docs](https://nwillc.github.io/poink/dokkaHtml/poink)
+- [Apache POI](https://poi.apache.org/)
+- [Poink API Docs](https://nwillc.github.io/poink/dokkaHtml/poink)
