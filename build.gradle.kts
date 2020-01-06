@@ -1,4 +1,3 @@
-
 val coverageThreshold = 0.95
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "maven"
@@ -178,10 +177,10 @@ tasks {
         outputDirectory = "docs/dokkaHtml"
         configuration {
             sourceLink {
-                   path = "src/main/kotlin" // or simply "./"
-                   url = "https://github.com/nwillc/poink/tree/master/src/main/kotlin" //remove src/main/kotlin if you use "./" above
-                   lineSuffix = "#L"
-               }
+                path = "src/main/kotlin"
+                url = "https://github.com/nwillc/poink/tree/master/src/main/kotlin"
+                lineSuffix = "#L"
+            }
         }
     }
 }
