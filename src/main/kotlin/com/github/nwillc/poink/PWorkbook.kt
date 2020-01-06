@@ -18,7 +18,6 @@ package com.github.nwillc.poink
 
 import java.io.FileOutputStream
 import org.apache.poi.ss.usermodel.CellStyle
-import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
