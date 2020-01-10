@@ -20,6 +20,7 @@ import java.io.FileOutputStream
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import java.io.FileInputStream
 
 /**
  * The _poink_ DSL facade for the Apache POI [Workbook].
@@ -34,6 +35,8 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
      */
     fun sheet(name: String = "Sheet ${numberOfSheets + 1}", block: PSheet.() -> Unit) =
         PSheet(createSheet(name)).apply(block)
+
+    fun sheetAt(index: Int, block: PSheet.() -> Unit) = PSheet(workbook.getSheetAt(index)).apply(block)
 
     /**
      * Create a named [CellStyle] in the workbook for future use.
@@ -65,3 +68,10 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
  * Create a workbook.
  */
 fun workbook(block: PWorkbook.() -> Unit): PWorkbook = PWorkbook().apply(block)
+
+/**
+ * Open existing workbook.
+ */
+fun workbook(path: String, block: PWorkbook.() -> Unit) : PWorkbook =
+    FileInputStream(path).use { PWorkbook(XSSFWorkbook(it)).apply(block) }
+

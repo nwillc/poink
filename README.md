@@ -6,9 +6,11 @@
 ![Poink!](poink.png)
 # POI iN Kotlin
 
-A Kotlin DSL to generate XLSX files via Apache POI.
+A Kotlin DSL to read/write XLSX files via Apache POI.
 
-Really almost nothing here, the DSL is a facade for Apache POI, providing for this sort of use:
+Really almost nothing here, the DSL is a facade for Apache POI, providing for this sort of use.
+
+## Generating
 
 ```kotlin
         workbook {
@@ -30,6 +32,20 @@ Really almost nothing here, the DSL is a facade for Apache POI, providing for th
                 autoSizeColumn(0)
             }
         }.write("test.xlsx")
+```
+
+## Reading
+
+```kotlin
+   workbook("test.xlsx") {
+            sheetAt(0) {
+               iterator().forEach { row ->
+                    row.iterator().forEach { cell ->
+                        println(cell.stringCellValue)
+                    }
+               }
+            }
+        }
 ```
 
 ## See Also
