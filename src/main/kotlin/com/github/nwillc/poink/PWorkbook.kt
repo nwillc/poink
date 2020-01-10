@@ -16,11 +16,11 @@
 
 package com.github.nwillc.poink
 
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
-import java.io.FileInputStream
 
 /**
  * The _poink_ DSL facade for the Apache POI [Workbook].
@@ -72,6 +72,5 @@ fun workbook(block: PWorkbook.() -> Unit): PWorkbook = PWorkbook().apply(block)
 /**
  * Open existing workbook.
  */
-fun workbook(path: String, block: PWorkbook.() -> Unit) : PWorkbook =
+fun workbook(path: String, block: PWorkbook.() -> Unit): PWorkbook =
     FileInputStream(path).use { PWorkbook(XSSFWorkbook(it)).apply(block) }
-
