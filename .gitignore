@@ -5,4 +5,4 @@ out
 build
 *.iml
 .java-version
-*.xlsx
+/test.xlsx
