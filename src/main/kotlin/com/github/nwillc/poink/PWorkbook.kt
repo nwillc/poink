@@ -32,10 +32,16 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
     /**
      * Add a named sheet to the workbook.
      * @param name of the new sheet, will default to "Sheet #"
+     * @param block Code to perform on the sheet.
      */
     fun sheet(name: String = "Sheet ${numberOfSheets + 1}", block: PSheet.() -> Unit) =
         PSheet(createSheet(name)).apply(block)
 
+    /**
+     * Retrieve an existing sheet by its index.
+     * @param index The index of the sheet
+     * @param block Code to perform on the sheet.
+     */
     fun sheetAt(index: Int, block: PSheet.() -> Unit) = PSheet(workbook.getSheetAt(index)).apply(block)
 
     /**
@@ -66,11 +72,14 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
 
 /**
  * Create a workbook.
+ * @param block Code to perform on the workbook.
  */
 fun workbook(block: PWorkbook.() -> Unit): PWorkbook = PWorkbook().apply(block)
 
 /**
  * Open existing workbook.
+ * @param path File path to an existing workbook.
+ * @param block Code to perform on the workbook.
  */
 fun workbook(path: String, block: PWorkbook.() -> Unit): PWorkbook =
     FileInputStream(path).use { PWorkbook(XSSFWorkbook(it)).apply(block) }
