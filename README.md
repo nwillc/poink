@@ -8,14 +8,14 @@
 
 A Kotlin DSL to read/write XLSX files via Apache POI.
 
-Really almost nothing here, the DSL is a facade for Apache POI, providing for this sort of use.
+Really almost nothing here, the DSL is a facade for Apache POI, providing for somewhat simpler use.
 
 ## Generating
 
 ```kotlin
         workbook {
             // Create a named cell style
-            val headerStyle = createCellStyle("Header") {
+            val headerStyle = cellStyle("Header") {
                 fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
                 fillPattern = FillPatternType.SOLID_FOREGROUND
             }

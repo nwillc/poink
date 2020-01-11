@@ -24,7 +24,7 @@ class PoinkTest {
     @Test
     fun `create an example xlsx`() {
         workbook {
-            val headerStyle = createCellStyle("header") {
+            val headerStyle = cellStyle("header") {
                 fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
                 fillPattern = FillPatternType.SOLID_FOREGROUND
             }

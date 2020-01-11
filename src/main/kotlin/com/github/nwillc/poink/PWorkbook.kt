@@ -30,7 +30,7 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
     private val styles: MutableMap<String, CellStyle> = mutableMapOf()
 
     /**
-     * Get a named sheet, or add if does not exist, in the workbook.
+     * Get a named sheet, or create if absent, in the workbook.
      * @param name of the new sheet, will default to "Sheet #"
      * @param block Code to perform on the sheet.
      */
@@ -45,23 +45,14 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
     fun sheet(index: Int, block: PSheet.() -> Unit) = PSheet(workbook.getSheetAt(index)).apply(block)
 
     /**
-     * Create a named [CellStyle] in the workbook for future use.
+     * Get a named [CellStyle], or create if absent, in the workbook for future use.
      * @param name to use for created style.
      * @param block Lambda to apply to the created style.
      * @return The created [CellStyle]
      */
-    fun createCellStyle(name: String, block: CellStyle.() -> Unit = {}): CellStyle {
-        val cellStyle = createCellStyle()
-        cellStyle.apply(block)
-        styles[name] = cellStyle
-        return cellStyle
-    }
-
-    /**
-     * Get a [CellStyle] by name.
-     * @param name of the style to look up.
-     */
-    fun getCellStyle(name: String) = styles[name]
+    fun cellStyle(name: String, block: CellStyle.() -> Unit = {}): CellStyle =
+        styles.computeIfAbsent(name) { createCellStyle() }
+            .apply(block)
 
     /**
      * Write the workbook out to a file.

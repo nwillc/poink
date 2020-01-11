@@ -51,8 +51,8 @@ class PWorkbookTest {
     fun `should be able to create a cell style by name`() {
         val HEADER = "header"
         workbook {
-            val style = createCellStyle(HEADER)
-            assertThat(getCellStyle(HEADER)).isEqualTo(style)
+            val style = cellStyle(HEADER)
+            assertThat(cellStyle(HEADER)).isEqualTo(style)
         }
     }
 
