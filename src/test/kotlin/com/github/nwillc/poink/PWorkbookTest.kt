@@ -64,9 +64,14 @@ class PWorkbookTest {
                 assertThat(this).isInstanceOf(PSheet::class.java)
                 assertThat(iterator().asSequence().count()).isEqualTo(2)
                 iterator().forEach { row ->
-                    row.iterator().forEach { cell ->
-                        println(cell.stringCellValue)
-                    }
+                    assertThat(row.lastCellNum).isEqualTo(3)
+                }
+            }
+            sheet(1) {
+                assertThat(this).isInstanceOf(PSheet::class.java)
+                assertThat(iterator().asSequence().count()).isEqualTo(2)
+                iterator().forEach { row ->
+                    assertThat(row.lastCellNum).isEqualTo(1)
                 }
             }
         }

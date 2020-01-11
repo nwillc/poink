@@ -1,5 +1,5 @@
-import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
+import org.jetbrains.dokka.gradle.DokkaTask
 
 val coverageThreshold = 0.95
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
@@ -184,6 +184,5 @@ tasks {
                 packageListUrl = URL("file://${project.rootDir}/docs/poi-package-list")
             }
         }
-
     }
 }
