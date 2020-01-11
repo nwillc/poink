@@ -22,6 +22,7 @@ import org.apache.poi.ss.usermodel.Sheet
 
 /**
  * The _poink_ DSL facade for the Apache POI [Sheet].
+ * @param sheet The [Sheet] to act as a facade for.
  */
 @PoinkDsl
 class PSheet(
