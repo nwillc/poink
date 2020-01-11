@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test
 
 class PoinkTest {
     @Test
-    fun `creat an example xlsx`() {
+    fun `create an example xlsx`() {
         workbook {
             val headerStyle = createCellStyle("header") {
                 fillForegroundColor = IndexedColors.GREY_25_PERCENT.index

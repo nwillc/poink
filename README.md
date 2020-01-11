@@ -38,7 +38,7 @@ Really almost nothing here, the DSL is a facade for Apache POI, providing for th
 
 ```kotlin
    workbook("test.xlsx") {
-            sheetAt(0) {
+            sheet("One") {
                iterator().forEach { row ->
                     row.iterator().forEach { cell ->
                         println(cell.stringCellValue)

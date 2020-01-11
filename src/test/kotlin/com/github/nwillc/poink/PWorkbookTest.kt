@@ -60,7 +60,7 @@ class PWorkbookTest {
     fun `should open existing workbook`() {
         workbook("src/test/resources/test.xlsx") {
             assertThat(this).isInstanceOf(PWorkbook::class.java)
-            sheetAt(0) {
+            sheet("One") {
                 assertThat(this).isInstanceOf(PSheet::class.java)
                 assertThat(iterator().asSequence().count()).isEqualTo(2)
                 iterator().forEach { row ->

@@ -30,15 +30,15 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
     private val styles: MutableMap<String, CellStyle> = mutableMapOf()
 
     /**
-     * Add a named sheet to the workbook.
+     * Get a named sheet, or add if does not exist, in the workbook.
      * @param name of the new sheet, will default to "Sheet #"
      * @param block Code to perform on the sheet.
      */
     fun sheet(name: String = "Sheet ${numberOfSheets + 1}", block: PSheet.() -> Unit) =
-        PSheet(createSheet(name)).apply(block)
+        PSheet(getSheet(name) ?: createSheet(name)).apply(block)
 
     /**
-     * Retrieve an existing sheet by its index.
+     * Get an existing sheet by its index.
      * @param index The index of the sheet
      * @param block Code to perform on the sheet.
      */
