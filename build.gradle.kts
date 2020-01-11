@@ -179,11 +179,6 @@ tasks {
         outputFormat = "html"
         outputDirectory = "docs/dokkaHtml"
         configuration {
-            sourceLink {
-                path = "./"
-                url = "https://github.com/nwillc/poink/tree/master"
-                lineSuffix = "#L"
-            }
             externalDocumentationLink {
                 url = URL("http://poi.apache.org/apidocs/4.1/")
                 packageListUrl = URL("file://${project.rootDir}/docs/poi-package-list")
