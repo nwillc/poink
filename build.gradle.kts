@@ -1,3 +1,6 @@
+import org.jetbrains.dokka.gradle.DokkaTask
+import java.net.URL
+
 val coverageThreshold = 0.95
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "maven"
@@ -172,15 +175,20 @@ tasks {
             }
         }
     }
-    withType<org.jetbrains.dokka.gradle.DokkaTask> {
+    withType<DokkaTask> {
         outputFormat = "html"
         outputDirectory = "docs/dokkaHtml"
         configuration {
             sourceLink {
-                path = "src/main/kotlin"
-                url = "https://github.com/nwillc/poink/tree/master/src/main/kotlin"
+                path = "./"
+                url = "https://github.com/nwillc/poink/tree/master"
                 lineSuffix = "#L"
             }
+            externalDocumentationLink {
+                url = URL("http://poi.apache.org/apidocs/4.1/")
+                packageListUrl = URL("file://${project.rootDir}/docs/poi-package-list")
+            }
         }
+
     }
 }
