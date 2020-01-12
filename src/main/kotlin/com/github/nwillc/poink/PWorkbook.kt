@@ -20,6 +20,7 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.Workbook
+import org.apache.poi.xssf.usermodel.XSSFCellStyle
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
 /**
@@ -28,7 +29,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
  */
 @PoinkDsl
 class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook by workbook {
-    private val styles: MutableMap<String, CellStyle> = mutableMapOf()
+    private val styles: MutableMap<String, XSSFCellStyle> = mutableMapOf()
 
     /**
      * Get a named sheet, or create if absent, in the workbook.
@@ -37,7 +38,7 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
      * @return The existing sheet, or a new one if named sheet doesn't exit.
      */
     fun sheet(name: String = "Sheet ${numberOfSheets + 1}", block: PSheet.() -> Unit) =
-        PSheet(getSheet(name) ?: createSheet(name)).apply(block)
+        PSheet(getSheet(name) ?: workbook.createSheet(name)).apply(block)
 
     /**
      * Get an existing sheet by its index.
@@ -54,7 +55,7 @@ class PWorkbook(private val workbook: XSSFWorkbook = XSSFWorkbook()) : Workbook 
      * @return The created [CellStyle]
      */
     fun cellStyle(name: String, block: CellStyle.() -> Unit = {}): CellStyle =
-        styles.computeIfAbsent(name) { createCellStyle() }
+        styles.computeIfAbsent(name) { workbook.createCellStyle() as XSSFCellStyle }
             .apply(block)
 
     /**

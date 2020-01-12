@@ -19,6 +19,8 @@ package com.github.nwillc.poink
 import org.apache.poi.ss.usermodel.FillPatternType
 import org.apache.poi.ss.usermodel.IndexedColors
 import org.junit.jupiter.api.Test
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class PoinkTest {
     @Test
@@ -37,6 +39,17 @@ class PoinkTest {
                 row(listOf("A very wide cell"))
                 row(listOf("An even wider column"))
                 autoSizeColumn(0)
+            }
+            sheet("Types") {
+                row(
+                    listOf(
+                        "hello",
+                        42,
+                        3.142,
+                        LocalDateTime.now(),
+                        LocalDate.now()
+                    ),
+                    headerStyle)
             }
         }.write("test.xlsx")
     }

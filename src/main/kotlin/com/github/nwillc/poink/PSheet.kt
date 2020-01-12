@@ -19,6 +19,9 @@ package com.github.nwillc.poink
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.Sheet
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.Calendar
 
 /**
  * The _poink_ DSL facade for the Apache POI [Sheet].
@@ -28,20 +31,47 @@ import org.apache.poi.ss.usermodel.Sheet
 class PSheet(
     private val sheet: Sheet
 ) : Sheet by sheet {
+    private val format = workbook.createDataFormat()
+    private val dateFormat = format.getFormat("MM/DD/YYYY")
+    private val timeStampFormat = format.getFormat("MM/DD/YYYY HH:MM:SS")
+
     /**
      * Add strings as a new row at bottom of sheet.
      * @param cells A [List] of [String] to add to [Sheet] as a row.
      * @param style An optional [CellStyle] for the cells in the row.
      * @return The [List] of [Cell] added as a row.
      */
-    fun row(cells: List<String>, style: CellStyle? = null): List<Cell> {
+    fun row(cells: List<Any>, style: CellStyle? = null): List<Cell> {
         val cellList = mutableListOf<Cell>()
         val row = sheet.createRow(sheet.physicalNumberOfRows)
         var col = 0
         cells.forEach { cellValue ->
             cellList.add(row.createCell(col++).apply {
                 cellStyle = style
-                setCellValue(cellValue)
+                when (cellValue) {
+                    is String -> setCellValue(cellValue)
+                    is Number -> setCellValue(cellValue.toDouble())
+                    is LocalDateTime -> {
+                        val timeStampStyle = workbook.createCellStyle()
+                        if (style != null) {
+                            timeStampStyle.cloneStyleFrom(style)
+                        }
+                        timeStampStyle.dataFormat = timeStampFormat
+                        cellStyle = timeStampStyle
+                        setCellValue(cellValue)
+                    }
+                    is LocalDate -> {
+                        val dateStyle = workbook.createCellStyle()
+                        if (style != null) {
+                            dateStyle.cloneStyleFrom(style)
+                        }
+                        dateStyle.dataFormat = dateFormat
+                        cellStyle = dateStyle
+                        setCellValue(cellValue)
+                    }
+                    is Calendar -> setCellValue(cellValue)
+                    else -> setCellValue(cellValue.toString())
+                }
             })
         }
         return cellList
