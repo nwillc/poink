@@ -16,11 +16,11 @@
 
 package com.github.nwillc.poink
 
+import java.time.LocalDate
+import java.time.LocalDateTime
 import org.apache.poi.ss.usermodel.FillPatternType
 import org.apache.poi.ss.usermodel.IndexedColors
 import org.junit.jupiter.api.Test
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 class PoinkTest {
     @Test

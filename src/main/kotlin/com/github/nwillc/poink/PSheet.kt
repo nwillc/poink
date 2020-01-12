@@ -16,12 +16,12 @@
 
 package com.github.nwillc.poink
 
-import org.apache.poi.ss.usermodel.Cell
-import org.apache.poi.ss.usermodel.CellStyle
-import org.apache.poi.ss.usermodel.Sheet
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.Calendar
+import org.apache.poi.ss.usermodel.Cell
+import org.apache.poi.ss.usermodel.CellStyle
+import org.apache.poi.ss.usermodel.Sheet
 
 /**
  * The _poink_ DSL facade for the Apache POI [Sheet].
