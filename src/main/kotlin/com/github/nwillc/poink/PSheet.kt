@@ -37,8 +37,9 @@ class PSheet(
     private val calendarFormat = format.getFormat("MMM D, YYYY")
 
     /**
-     * Add strings as a new row at bottom of sheet.
-     * @param cells A [List] of [String] to add to [Sheet] as a row.
+     * Add objects as a new row at bottom of sheet. These objects will be intelligently rendered based on [String],
+     * [Number], [LocalDate], [LocalDateTime], [Calendar] or else the [Object.toString].
+     * @param cells A [List] of [Any] to add to [Sheet] as a row.
      * @param style An optional [CellStyle] for the cells in the row.
      * @return The [List] of [Cell] added as a row.
      */

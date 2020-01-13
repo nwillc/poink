@@ -23,7 +23,7 @@ Really almost nothing here, the DSL is a facade for Apache POI, providing for so
                 // Add a row with a style
                 row(listOf("a", "b", "c"), headerStyle)
                 // Add a row without style
-                row(listOf("1", "2", "3"))
+                row(listOf(1, 2.0, 3L))
             }
             sheet {
                 row(listOf("A very wide cell"))
