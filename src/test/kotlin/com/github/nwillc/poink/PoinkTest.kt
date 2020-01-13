@@ -18,6 +18,7 @@ package com.github.nwillc.poink
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.Calendar
 import org.apache.poi.ss.usermodel.FillPatternType
 import org.apache.poi.ss.usermodel.IndexedColors
 import org.junit.jupiter.api.Test
@@ -41,15 +42,19 @@ class PoinkTest {
                 autoSizeColumn(0)
             }
             sheet("Types") {
-                row(
-                    listOf(
-                        "hello",
-                        42,
-                        3.142,
-                        LocalDateTime.now(),
-                        LocalDate.now()
-                    ),
-                    headerStyle)
+                val list = listOf(
+                    "hello",
+                    42,
+                    3.142,
+                    LocalDateTime.now(),
+                    LocalDate.now(),
+                    Calendar.getInstance(),
+                    "key" to "value"
+                )
+                // Without style
+                row(list)
+                // With style
+                row(list, headerStyle)
             }
         }.write("test.xlsx")
     }

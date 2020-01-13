@@ -34,6 +34,7 @@ class PSheet(
     private val format = workbook.createDataFormat()
     private val dateFormat = format.getFormat("MM/DD/YYYY")
     private val timeStampFormat = format.getFormat("MM/DD/YYYY HH:MM:SS")
+    private val calendarFormat = format.getFormat("MMM D, YYYY")
 
     /**
      * Add strings as a new row at bottom of sheet.
@@ -52,28 +53,28 @@ class PSheet(
                     is String -> setCellValue(cellValue)
                     is Number -> setCellValue(cellValue.toDouble())
                     is LocalDateTime -> {
-                        val timeStampStyle = workbook.createCellStyle()
-                        if (style != null) {
-                            timeStampStyle.cloneStyleFrom(style)
-                        }
-                        timeStampStyle.dataFormat = timeStampFormat
-                        cellStyle = timeStampStyle
+                        cellStyle = cloneAndFormat(style, timeStampFormat)
                         setCellValue(cellValue)
                     }
                     is LocalDate -> {
-                        val dateStyle = workbook.createCellStyle()
-                        if (style != null) {
-                            dateStyle.cloneStyleFrom(style)
-                        }
-                        dateStyle.dataFormat = dateFormat
-                        cellStyle = dateStyle
+                        cellStyle = cloneAndFormat(style, dateFormat)
                         setCellValue(cellValue)
                     }
-                    is Calendar -> setCellValue(cellValue)
+                    is Calendar -> {
+                        cellStyle = cloneAndFormat(style, calendarFormat)
+                        setCellValue(cellValue)
+                    }
                     else -> setCellValue(cellValue.toString())
                 }
             })
         }
         return cellList
+    }
+
+    private fun cloneAndFormat(style: CellStyle?, format: Short) = workbook.createCellStyle().apply {
+            if (style != null) {
+                cloneStyleFrom(style)
+            }
+            dataFormat = format
     }
 }
