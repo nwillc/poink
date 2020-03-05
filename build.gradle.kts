@@ -13,18 +13,18 @@ val mockkVersion: String by project
 val poiVersion: String by project
 
 plugins {
-    kotlin("jvm") version "1.3.61"
+    kotlin("jvm") version "1.3.70"
     jacoco
     `maven-publish`
     id("com.github.nwillc.vplugin") version "3.0.1"
-    id("org.jetbrains.dokka") version "0.10.0"
-    id("io.gitlab.arturbosch.detekt") version "1.3.0"
+    id("org.jetbrains.dokka") version "0.10.1"
+    id("io.gitlab.arturbosch.detekt") version "1.6.0"
     id("com.jfrog.bintray") version "1.8.4"
-    id("org.jlleitschuh.gradle.ktlint") version "9.1.1"
+    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
 }
 
 group = "com.github.nwillc"
-version = "0.4.2-SNAPSHOT"
+version = "0.4.2"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -179,6 +179,7 @@ tasks {
         outputFormat = "html"
         outputDirectory = "docs/dokkaHtml"
         configuration {
+            jdkVersion = 8
             externalDocumentationLink {
                 url = URL("http://poi.apache.org/apidocs/4.1/")
                 packageListUrl = URL("file://${project.rootDir}/docs/poi-package-list")
