@@ -13,18 +13,18 @@ val mockkVersion: String by project
 val poiVersion: String by project
 
 plugins {
-    kotlin("jvm") version "1.3.70"
+    kotlin("jvm") version "1.3.71"
     jacoco
     `maven-publish`
-    id("com.github.nwillc.vplugin") version "3.0.1"
+    id("com.github.nwillc.vplugin") version "3.0.3"
     id("org.jetbrains.dokka") version "0.10.1"
-    id("io.gitlab.arturbosch.detekt") version "1.6.0"
+    id("io.gitlab.arturbosch.detekt") version "1.7.0"
     id("com.jfrog.bintray") version "1.8.4"
     id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
 }
 
 group = "com.github.nwillc"
-version = "0.4.2"
+version = "0.4.3"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -59,27 +59,21 @@ ktlint {
 }
 
 detekt {
-    toolVersion = "1.0.0-RC14"
     input = files("src/main/kotlin")
     reports {
-        xml {
-            enabled = true
-        }
-        html {
-            enabled = true
-            destination = file("$buildDir/reports/detekt/detekt.html")
-        }
+        xml.enabled = true
+        html.enabled = true
     }
 }
 
 val sourcesJar by tasks.registering(Jar::class) {
-    classifier = "sources"
+    archiveClassifier.convention("sources")
     from(sourceSets["main"].allSource)
 }
 
 val javadocJar by tasks.registering(Jar::class) {
     dependsOn("dokka")
-    classifier = "javadoc"
+    archiveClassifier.convention("javadoc")
     from("$buildDir/dokka")
 }
 
