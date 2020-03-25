@@ -50,4 +50,4 @@ Really almost nothing here, the DSL is a facade for Apache POI, providing for so
 
 ## See Also
 - [Apache POI](https://poi.apache.org/)
-- [Poink API Docs](https://nwillc.github.io/poink/dokkaHtml/poink)
+- [Poink API Docs](https://nwillc.github.io/poink/dokka/poink)

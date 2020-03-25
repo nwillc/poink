@@ -4,6 +4,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 val coverageThreshold = 0.95
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "maven"
+val dokkaDir = "$projectDir/docs/dokka"
 
 val assertJVersion: String by project
 val jacocoToolVersion: String by project
@@ -24,7 +25,7 @@ plugins {
 }
 
 group = "com.github.nwillc"
-version = "0.4.3"
+version = "0.4.4-SNAPSHOT"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -171,7 +172,7 @@ tasks {
     }
     withType<DokkaTask> {
         outputFormat = "html"
-        outputDirectory = "docs/dokkaHtml"
+        outputDirectory = dokkaDir
         configuration {
             jdkVersion = 8
             externalDocumentationLink {
