@@ -1,5 +1,5 @@
-import java.net.URL
 import org.jetbrains.dokka.gradle.DokkaTask
+import java.net.URL
 
 val coverageThreshold = 0.95
 val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
@@ -23,23 +23,24 @@ repositories {
 
 dependencies {
     Dependencies.artifacts.select(
-           "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-       ).forEach { (n, v) -> implementation("$n:$v") }
+        "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    ).forEach { (n, v) -> implementation("$n:$v") }
 
     Dependencies.artifacts.select(
         "org.apache.poi:poi",
         "org.apache.poi:poi-ooxml"
-    ).forEach{ (n, v) -> api("$n:$v") }
+    ).forEach { (n, v) -> api("$n:$v") }
 
     Dependencies.artifacts.select(
         "io.mockk:mockk",
         "org.assertj:assertj-core",
         "org.junit.jupiter:junit-jupiter"
-    ).forEach{ (n, v) -> testImplementation("$n:$v") }
+    ).forEach { (n, v) -> testImplementation("$n:$v") }
 }
 
 ktlint {
     version.set(ToolVersions.ktlint)
+    disabledRules.set(setOf("import-ordering"))
 }
 
 detekt {

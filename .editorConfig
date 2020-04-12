@@ -1,0 +1,31 @@
+root=true
+
+[*]
+insert_final_newline = true
+end_of_line = lf
+charset = utf-8
+# tab_width = 4
+
+[*.md]
+trim_trailing_whitespace = true
+
+[Jenkinsfile]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+
+[*.{kt,kts,java,sql}]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+disabled_rules=import-ordering
+
+[*.{json,yml,yaml}]
+indent_style = space
+indent_size = 2
+
+[*.bat]
+end_of_line = crlf
+
+[Makefile]
+indent_style = tab

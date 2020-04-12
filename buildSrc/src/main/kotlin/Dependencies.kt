@@ -54,5 +54,5 @@ object Dependencies {
     )
 }
 
-fun Map<String,String>.select(vararg keys: String): List<Pair<String,String?>> =
-    keys.map { it to this[it] }.toList()
+fun Map<String,String>.select(vararg keys: String): List<Pair<String,String>> =
+    keys.map { it to (this[it] ?: error("No entry for $it")) }.toList()
