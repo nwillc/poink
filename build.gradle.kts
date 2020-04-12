@@ -9,11 +9,18 @@ val dokkaDir = "$projectDir/docs/dokka"
 plugins {
     jacoco
     `maven-publish`
-    Dependencies.plugins.forEach { (n, v) -> id(n) version v }
+    Dependencies.plugins(
+        "com.github.nwillc.vplugin",
+        "com.jfrog.bintray",
+        "io.gitlab.arturbosch.detekt",
+        "org.jetbrains.dokka",
+        "org.jetbrains.kotlin.jvm",
+        "org.jlleitschuh.gradle.ktlint"
+    ) { (n: String, v: String) -> id(n) version v }
 }
 
 group = "com.github.nwillc"
-version = "0.4.4"
+version = "0.4.5-SNAPSHOT"
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -22,20 +29,20 @@ repositories {
 }
 
 dependencies {
-    Dependencies.artifacts.select(
+    Dependencies.artifacts(
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    ).forEach { (n, v) -> implementation("$n:$v") }
+    ) { implementation(it) }
 
-    Dependencies.artifacts.select(
+    Dependencies.artifacts(
         "org.apache.poi:poi",
         "org.apache.poi:poi-ooxml"
-    ).forEach { (n, v) -> api("$n:$v") }
+    ) { api(it) }
 
-    Dependencies.artifacts.select(
+    Dependencies.artifacts(
         "io.mockk:mockk",
         "org.assertj:assertj-core",
         "org.junit.jupiter:junit-jupiter"
-    ).forEach { (n, v) -> testImplementation("$n:$v") }
+    ) { testImplementation(it) }
 }
 
 ktlint {

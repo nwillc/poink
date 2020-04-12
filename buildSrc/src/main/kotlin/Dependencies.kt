@@ -52,7 +52,18 @@ object Dependencies {
         "org.jetbrains.kotlin:kotlin-stdlib-jdk8" to PluginVersions.kotlin,
         "org.junit.jupiter:junit-jupiter" to ArtifactVersions.jupiter
     )
-}
 
-fun Map<String,String>.select(vararg keys: String): List<Pair<String,String>> =
-    keys.map { it to (this[it] ?: error("No entry for $it")) }.toList()
+    fun plugins(vararg keys: String, block: (Pair<String, String>) -> Unit) =
+        keys
+            .map { it to (plugins[it] ?: error("No plugin $it registered in Dependencies.")) }
+            .forEach {
+                block(it)
+            }
+
+    fun artifacts(vararg keys: String, block: (String) -> Unit) =
+        keys
+            .map { it to (Dependencies.artifacts[it] ?: error("No artifact $it registered in Dependencies.")) }
+            .forEach { (n, v) ->
+                block("$n:$v")
+            }
+}
