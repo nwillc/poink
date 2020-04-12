@@ -6,22 +6,10 @@ val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
 val publicationName = "maven"
 val dokkaDir = "$projectDir/docs/dokka"
 
-val assertJVersion: String by project
-val jacocoToolVersion: String by project
-val jupiterVersion: String by project
-val ktlintToolVersion: String by project
-val mockkVersion: String by project
-val poiVersion: String by project
-
 plugins {
-    kotlin("jvm") version "1.3.71"
     jacoco
     `maven-publish`
-    id("com.github.nwillc.vplugin") version "3.0.3"
-    id("org.jetbrains.dokka") version "0.10.1"
-    id("io.gitlab.arturbosch.detekt") version "1.7.0"
-    id("com.jfrog.bintray") version "1.8.4"
-    id("org.jlleitschuh.gradle.ktlint") version "9.2.1"
+    Dependencies.plugins.forEach { (n, v) -> id(n) version v }
 }
 
 group = "com.github.nwillc"
@@ -34,29 +22,24 @@ repositories {
 }
 
 dependencies {
-    listOf(
-        kotlin("stdlib-jdk8")
-    )
-        .forEach { implementation(it) }
+    Dependencies.artifacts.select(
+           "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+       ).forEach { (n, v) -> implementation("$n:$v") }
 
-    listOf(
-        "org.apache.poi:poi:$poiVersion",
-        "org.apache.poi:poi-ooxml:$poiVersion"
-    )
-        .forEach { api(it) }
+    Dependencies.artifacts.select(
+        "org.apache.poi:poi",
+        "org.apache.poi:poi-ooxml"
+    ).forEach{ (n, v) -> api("$n:$v") }
 
-    listOf(
-        "org.junit.jupiter:junit-jupiter-api:$jupiterVersion",
-        "org.assertj:assertj-core:$assertJVersion",
-        "io.mockk:mockk:$mockkVersion"
-    )
-        .forEach { testImplementation(it) }
-
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiterVersion")
+    Dependencies.artifacts.select(
+        "io.mockk:mockk",
+        "org.assertj:assertj-core",
+        "org.junit.jupiter:junit-jupiter"
+    ).forEach{ (n, v) -> testImplementation("$n:$v") }
 }
 
 ktlint {
-    version.set(ktlintToolVersion)
+    version.set(ToolVersions.ktlint)
 }
 
 detekt {
@@ -79,7 +62,7 @@ val javadocJar by tasks.registering(Jar::class) {
 }
 
 jacoco {
-    toolVersion = jacocoToolVersion
+    toolVersion = ToolVersions.jacoco
 }
 
 publishing {
