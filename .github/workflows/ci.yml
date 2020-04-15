@@ -21,6 +21,10 @@ jobs:
     - name: Check
       run: ./gradlew check
 
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+
+
 
 
 
