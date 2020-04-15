@@ -26,5 +26,8 @@ jobs:
         java-version: 1.8
 
     # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: gradlew clean test
+    - name: Assemble
+      run: ./gradlew assemble
+
+    - name: Check
+      run: ./gradlew check
