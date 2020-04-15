@@ -4,8 +4,6 @@ name: CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build:
@@ -13,15 +11,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Assemble
     - uses: actions/setup-java@v1
       with:
         java-version: 1.8
-
-    - name: Assemble
       run: ./gradlew assemble
 
     - name: Check
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
       run: ./gradlew check
 
-    - name: Jacoco
-      run: ./gradlew jacocoTestReport
+    - name: Coverage
+    - uses: codecov/codecov-action@v1
+
+
+
