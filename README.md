@@ -1,6 +1,6 @@
 [![Coverage](https://codecov.io/gh/nwillc/poink/branch/master/graphs/badge.svg?branch=master)](https://codecov.io/gh/nwillc/poink)
 [![license](https://img.shields.io/github/license/nwillc/poink.svg)](https://tldrlegal.com/license/-isc-license)
-[![Build Status](https://github.com/nwillc/poink/workflows/CI/badge.svg)](https://github.com/nwillc/poink/actions?query=workflow%3ACI)
+[![Build Status](https://github.com/nwillc/poink/workflows/CICD/badge.svg)](https://github.com/nwillc/poink/actions?query=workflow%3ACICD)
 [![Download](https://api.bintray.com/packages/nwillc/maven/poink/images/download.svg)](https://bintray.com/nwillc/maven/poink/_latestVersion)
 ---
 ![Poink!](poink.png)
