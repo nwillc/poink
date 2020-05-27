@@ -21,7 +21,7 @@ object Constants {
     const val publicationName = "maven"
     const val dokkaDir = "docs/dokka"
     const val group = "com.github.nwillc"
-    const val version = "0.4.6-SNAPSHOT"
+    const val version = "0.4.6"
 }
 
 object PluginVersions {
