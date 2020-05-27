@@ -1,3 +1,5 @@
+import java.math.BigDecimal
+
 /*
  * Copyright (c) 2020, nwillc@gmail.com
  *
@@ -14,19 +16,27 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+object Constants {
+    val coverageThreshold = BigDecimal(0.95)
+    const val publicationName = "maven"
+    const val dokkaDir = "docs/dokka"
+    const val group = "com.github.nwillc"
+    const val version = "0.4.6-SNAPSHOT"
+}
+
 object PluginVersions {
     const val bintray = "1.8.5"
-    const val detekt = "1.7.4"
+    const val detekt = "1.9.1"
     const val dokka = "0.10.1"
     const val kotlin = "1.3.72"
     const val ktlint = "9.2.1"
-    const val vplugin = "3.0.3"
+    const val vplugin = "3.0.5"
 }
 
 object ArtifactVersions {
-    const val assertJ = "3.15.0"
-    const val jupiter = "5.6.1"
-    const val mockk = "1.9.3"
+    const val assertJ = "3.16.1"
+    const val jupiter = "5.7.0-M1"
+    const val mockk = "1.10.0"
     const val poi = "4.1.2"
 }
 
