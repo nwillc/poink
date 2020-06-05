@@ -20,13 +20,13 @@ object PluginVersions {
     const val dokka = "0.10.1"
     const val kotlin = "1.3.72"
     const val ktlint = "9.2.1"
-    const val vplugin = "3.0.3"
+    const val vplugin = "3.0.5"
 }
 
 object ArtifactVersions {
-    const val assertJ = "3.15.0"
+    const val assertJ = "3.16.1"
     const val jupiter = "5.6.1"
-    const val mockk = "1.9.3"
+    const val mockk = "1.10.0"
     const val poi = "4.1.2"
 }
 
