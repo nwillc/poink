@@ -1,19 +1,14 @@
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
-val coverageThreshold = 0.95
-val jvmTargetVersion = JavaVersion.VERSION_1_8.toString()
-val publicationName = "maven"
-val dokkaDir = "$projectDir/docs/dokka"
-
 plugins {
     jacoco
     `maven-publish`
     Dependencies.plugins.forEach { (n, v) -> id(n) version v }
 }
 
-group = "com.github.nwillc"
-version = "0.4.6-SNAPSHOT"
+group = Constants.group
+version = Constants.version
 
 logger.lifecycle("${project.group}.${project.name}@${project.version}")
 
@@ -52,13 +47,13 @@ detekt {
 }
 
 val sourcesJar by tasks.registering(Jar::class) {
-    archiveClassifier.convention("sources")
+    archiveClassifier.set("sources")
     from(sourceSets["main"].allSource)
 }
 
 val javadocJar by tasks.registering(Jar::class) {
     dependsOn("dokka")
-    archiveClassifier.convention("javadoc")
+    archiveClassifier.set("javadoc")
     from("$buildDir/dokka")
 }
 
@@ -68,7 +63,7 @@ jacoco {
 
 publishing {
     publications {
-        create<MavenPublication>(publicationName) {
+        create<MavenPublication>(Constants.publicationName) {
             groupId = project.group.toString()
             artifactId = project.name
             version = project.version.toString()
@@ -85,9 +80,9 @@ bintray {
     key = System.getenv("BINTRAY_API_KEY")
     dryRun = false
     publish = true
-    setPublications(publicationName)
+    setPublications(Constants.publicationName)
     pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
-        repo = publicationName
+        repo = Constants.publicationName
         name = project.name
         desc = "Apache POI Koltin DSL"
         websiteUrl = "https://github.com/nwillc/poink"
@@ -102,10 +97,10 @@ bintray {
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = jvmTargetVersion
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = jvmTargetVersion
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     named("check") {
         dependsOn(":jacocoTestCoverageVerification")
@@ -136,7 +131,7 @@ tasks {
         violationRules {
             rule {
                 limit {
-                    minimum = coverageThreshold.toBigDecimal()
+                    minimum = Constants.coverageThreshold
                 }
             }
         }
@@ -156,7 +151,7 @@ tasks {
     }
     withType<DokkaTask> {
         outputFormat = "html"
-        outputDirectory = dokkaDir
+        outputDirectory = "$projectDir/${Constants.dokkaDir}"
         configuration {
             jdkVersion = 8
             externalDocumentationLink {
