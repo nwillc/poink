@@ -15,7 +15,7 @@
  */
 
 object Constants {
-    val coverageThreshold = BigDecimal(0.95)
+    val coverageThreshold = 0.95
     const val publicationName = "maven"
     const val dokkaDir = "docs/dokka"
     const val group = "com.github.nwillc"
@@ -70,7 +70,7 @@ object Dependencies {
 
     fun artifacts(vararg keys: String, block: (String) -> Unit) =
         keys
-            .map { it to (Dependencies.artifacts[it] ?: error("No artifact $it registered in Dependencies.")) }
+            .map { it to (artifacts[it] ?: error("No artifact $it registered in Dependencies.")) }
             .forEach { (n, v) ->
                 block("$n:$v")
             }

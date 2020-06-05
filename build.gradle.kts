@@ -1,3 +1,4 @@
+import Constants.coverageThreshold
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
@@ -131,7 +132,7 @@ tasks {
         violationRules {
             rule {
                 limit {
-                    minimum = Constants.coverageThreshold
+                    minimum = coverageThreshold.toBigDecimal()
                 }
             }
         }
