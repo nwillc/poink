@@ -132,7 +132,7 @@ tasks {
         violationRules {
             rule {
                 limit {
-                    minimum = coverageThreshold.toBigDecimal()
+                    minimum = coverageThreshold
                 }
             }
         }

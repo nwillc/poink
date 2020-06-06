@@ -1,3 +1,5 @@
+import java.math.BigDecimal
+
 /*
  * Copyright (c) 2020, nwillc@gmail.com
  *
@@ -15,11 +17,11 @@
  */
 
 object Constants {
-    val coverageThreshold = 0.95
+    val coverageThreshold = BigDecimal(0.95)
     const val publicationName = "maven"
     const val dokkaDir = "docs/dokka"
     const val group = "com.github.nwillc"
-    const val version = "0.4.6"
+    const val version = "0.4.7-SNAPSHOT"
 }
 
 object PluginVersions {
