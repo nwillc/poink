@@ -82,18 +82,20 @@ bintray {
     dryRun = false
     publish = true
     setPublications(Constants.publicationName)
-    pkg(delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
-        repo = Constants.publicationName
-        name = project.name
-        desc = "Apache POI Koltin DSL"
-        websiteUrl = "https://github.com/nwillc/poink"
-        issueTrackerUrl = "https://github.com/nwillc/poink/issues"
-        vcsUrl = "https://github.com/nwillc/poink.git"
-        version.vcsTag = "v${project.version}"
-        setLicenses("ISC")
-        setLabels("kotlin", "Apache POI", "DSL")
-        publicDownloadNumbers = true
-    })
+    pkg(
+        delegateClosureOf<com.jfrog.bintray.gradle.BintrayExtension.PackageConfig> {
+            repo = Constants.publicationName
+            name = project.name
+            desc = "Apache POI Koltin DSL"
+            websiteUrl = "https://github.com/nwillc/poink"
+            issueTrackerUrl = "https://github.com/nwillc/poink/issues"
+            vcsUrl = "https://github.com/nwillc/poink.git"
+            version.vcsTag = "v${project.version}"
+            setLicenses("ISC")
+            setLabels("kotlin", "Apache POI", "DSL")
+            publicDownloadNumbers = true
+        }
+    )
 }
 
 tasks {

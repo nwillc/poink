@@ -16,12 +16,12 @@
 
 package com.github.nwillc.poink
 
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.util.Calendar
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.Sheet
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.Calendar
 
 /**
  * The _poink_ DSL facade for the Apache POI [Sheet].
@@ -48,34 +48,36 @@ class PSheet(
         val row = sheet.createRow(sheet.physicalNumberOfRows)
         var col = 0
         cells.forEach { cellValue ->
-            cellList.add(row.createCell(col++).apply {
-                cellStyle = style
-                when (cellValue) {
-                    is String -> setCellValue(cellValue)
-                    is Number -> setCellValue(cellValue.toDouble())
-                    is LocalDateTime -> {
-                        cellStyle = cloneAndFormat(style, timeStampFormat)
-                        setCellValue(cellValue)
+            cellList.add(
+                row.createCell(col++).apply {
+                    cellStyle = style
+                    when (cellValue) {
+                        is String -> setCellValue(cellValue)
+                        is Number -> setCellValue(cellValue.toDouble())
+                        is LocalDateTime -> {
+                            cellStyle = cloneAndFormat(style, timeStampFormat)
+                            setCellValue(cellValue)
+                        }
+                        is LocalDate -> {
+                            cellStyle = cloneAndFormat(style, dateFormat)
+                            setCellValue(cellValue)
+                        }
+                        is Calendar -> {
+                            cellStyle = cloneAndFormat(style, calendarFormat)
+                            setCellValue(cellValue)
+                        }
+                        else -> setCellValue(cellValue.toString())
                     }
-                    is LocalDate -> {
-                        cellStyle = cloneAndFormat(style, dateFormat)
-                        setCellValue(cellValue)
-                    }
-                    is Calendar -> {
-                        cellStyle = cloneAndFormat(style, calendarFormat)
-                        setCellValue(cellValue)
-                    }
-                    else -> setCellValue(cellValue.toString())
                 }
-            })
+            )
         }
         return cellList
     }
 
     private fun cloneAndFormat(style: CellStyle?, format: Short) = workbook.createCellStyle().apply {
-            if (style != null) {
-                cloneStyleFrom(style)
-            }
-            dataFormat = format
+        if (style != null) {
+            cloneStyleFrom(style)
+        }
+        dataFormat = format
     }
 }
